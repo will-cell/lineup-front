@@ -24,9 +24,58 @@ const mockRestaurant: Restaurant = {
   notificationDelay: 30
 };
 
+// Données de test pour les tickets
+const mockTickets: Ticket[] = [
+  {
+    id: '1',
+    firstName: 'Jean',
+    lastName: 'Dupont',
+    partySize: 4,
+    createdAt: new Date(Date.now() - 45 * 60 * 1000), // 45 minutes d'attente
+    estimatedArrivalTime: new Date(Date.now() + 15 * 60 * 1000),
+    status: 'waiting'
+  },
+  {
+    id: '2',
+    firstName: 'Marie-Christine',
+    lastName: 'De La Rochefoucauld',
+    partySize: 2,
+    createdAt: new Date(Date.now() - 20 * 60 * 1000),
+    estimatedArrivalTime: new Date(Date.now() + 40 * 60 * 1000),
+    status: 'waiting'
+  },
+  {
+    id: '3',
+    firstName: 'Li',
+    lastName: 'Wei',
+    partySize: 1,
+    createdAt: new Date(Date.now() - 10 * 60 * 1000),
+    estimatedArrivalTime: new Date(Date.now() + 50 * 60 * 1000),
+    status: 'notified'
+  },
+  {
+    id: '4',
+    firstName: 'Alessandro',
+    lastName: 'Rossi',
+    partySize: 6,
+    createdAt: new Date(Date.now() - 60 * 60 * 1000), // 1 heure d'attente
+    estimatedArrivalTime: new Date(Date.now() + 5 * 60 * 1000),
+    status: 'notified'
+  },
+  {
+    id: '5',
+    firstName: 'Sophie',
+    lastName: 'Martin',
+    partySize: 3,
+    createdAt: new Date(Date.now() - 30 * 60 * 1000),
+    estimatedArrivalTime: new Date(Date.now() + 30 * 60 * 1000),
+    status: 'waiting'
+  }
+];
+
 export const useStore = create<Store>((set) => ({
   restaurant: mockRestaurant,
-  tickets: [],
+  tickets: mockTickets,
   
   updateRestaurant: (updates) =>
     set((state) => ({

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useStore } from '../../core/useCases/store';
+import { ClockIcon, UserGroupIcon, BellIcon } from '@heroicons/react/24/outline';
 
 export const ConfigurationPage = () => {
   const { restaurant, updateRestaurant } = useStore();
@@ -16,80 +17,103 @@ export const ConfigurationPage = () => {
     updateRestaurant(formData);
   };
 
+  const ConfigBlock = ({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) => (
+    <div className="bg-white shadow rounded-lg p-6">
+      <div className="flex items-center mb-4">
+        <div className="p-2 bg-indigo-50 rounded-lg">
+          {icon}
+        </div>
+        <h2 className="ml-3 text-lg font-medium text-gray-900">{title}</h2>
+      </div>
+      <div className="space-y-4">
+        {children}
+      </div>
+    </div>
+  );
+
+  const InputField = ({ label, id, ...props }: { label: string; id: string; [key: string]: any }) => (
+    <div>
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+        {label}
+      </label>
+      <input
+        id={id}
+        {...props}
+        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+      />
+    </div>
+  );
+
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-7xl mx-auto">
       <h1 className="text-2xl font-semibold text-gray-900 mb-6">Configuration du restaurant</h1>
       
-      <form onSubmit={handleSubmit} className="space-y-6 bg-white shadow rounded-lg p-6">
-        <div>
-          <label htmlFor="totalSeats" className="block text-sm font-medium text-gray-700">
-            Nombre total de places
-          </label>
-          <input
-            type="number"
-            id="totalSeats"
-            value={formData.totalSeats}
-            onChange={(e) => setFormData({ ...formData, totalSeats: parseInt(e.target.value) })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Capacité */}
+          <ConfigBlock 
+            title="Capacité" 
+            icon={<UserGroupIcon className="h-6 w-6 text-indigo-600" />}
+          >
+            <InputField
+              label="Nombre total de places"
+              id="totalSeats"
+              type="number"
+              value={formData.totalSeats}
+              onChange={(e) => setFormData({ ...formData, totalSeats: parseInt(e.target.value) })}
+              min="1"
+            />
+          </ConfigBlock>
 
-        <div>
-          <label htmlFor="ticketTimeStep" className="block text-sm font-medium text-gray-700">
-            Intervalle entre les tickets (minutes)
-          </label>
-          <input
-            type="number"
-            id="ticketTimeStep"
-            value={formData.ticketTimeStep}
-            onChange={(e) => setFormData({ ...formData, ticketTimeStep: parseInt(e.target.value) })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
+          {/* Horaires de service */}
+          <ConfigBlock 
+            title="Horaires de service" 
+            icon={<ClockIcon className="h-6 w-6 text-indigo-600" />}
+          >
+            <InputField
+              label="Heure de début du service"
+              id="serviceStartTime"
+              type="time"
+              value={formData.serviceStartTime}
+              onChange={(e) => setFormData({ ...formData, serviceStartTime: e.target.value })}
+            />
+            <InputField
+              label="Heure de fin du service"
+              id="serviceEndTime"
+              type="time"
+              value={formData.serviceEndTime}
+              onChange={(e) => setFormData({ ...formData, serviceEndTime: e.target.value })}
+            />
+          </ConfigBlock>
 
-        <div>
-          <label htmlFor="notificationDelay" className="block text-sm font-medium text-gray-700">
-            Délai de notification (minutes)
-          </label>
-          <input
-            type="number"
-            id="notificationDelay"
-            value={formData.notificationDelay}
-            onChange={(e) => setFormData({ ...formData, notificationDelay: parseInt(e.target.value) })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="serviceStartTime" className="block text-sm font-medium text-gray-700">
-            Heure de début du service
-          </label>
-          <input
-            type="time"
-            id="serviceStartTime"
-            value={formData.serviceStartTime}
-            onChange={(e) => setFormData({ ...formData, serviceStartTime: e.target.value })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="serviceEndTime" className="block text-sm font-medium text-gray-700">
-            Heure de fin du service
-          </label>
-          <input
-            type="time"
-            id="serviceEndTime"
-            value={formData.serviceEndTime}
-            onChange={(e) => setFormData({ ...formData, serviceEndTime: e.target.value })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
+          {/* Paramètres d'attente */}
+          <ConfigBlock 
+            title="Paramètres d'attente" 
+            icon={<BellIcon className="h-6 w-6 text-indigo-600" />}
+          >
+            <InputField
+              label="Intervalle entre les tickets (minutes)"
+              id="ticketTimeStep"
+              type="number"
+              value={formData.ticketTimeStep}
+              onChange={(e) => setFormData({ ...formData, ticketTimeStep: parseInt(e.target.value) })}
+              min="1"
+            />
+            <InputField
+              label="Délai de notification (minutes)"
+              id="notificationDelay"
+              type="number"
+              value={formData.notificationDelay}
+              onChange={(e) => setFormData({ ...formData, notificationDelay: parseInt(e.target.value) })}
+              min="1"
+            />
+          </ConfigBlock>
         </div>
 
         <div className="flex justify-end">
           <button
             type="submit"
-            className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             Enregistrer les modifications
           </button>

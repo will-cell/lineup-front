@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuthStore } from '../../../core/useCases/authStore';
+import { LoadingScreen } from '../../components/LoadingScreen';
 
 export const LoginPage = () => {
     const { login, isAuthenticated, isLoading, error } = useAuthStore();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showContent, setShowContent] = useState(false);
 
+    if (isLoading && !showContent) {
+        return <LoadingScreen onLoadingComplete={() => setShowContent(true)} />;
+    }
+
+    // Rediriger si déjà authentifié
     if (isAuthenticated) {
         return <Navigate to="/" replace />;
     }
@@ -16,6 +23,7 @@ export const LoginPage = () => {
         await login({ email, password });
     };
 
+    // Le reste du composant ne s'affiche que si on n'est pas authentifié et pas en cours de chargement
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">

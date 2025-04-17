@@ -7,9 +7,12 @@ import {
 import { StatCard } from '../components/StatCard';
 import { TicketCard } from '../components/TicketCard';
 import { useStore } from '../../core/useCases/store';
+import { useAuthStore } from '../../core/useCases/authStore';
 
 export const HomePage = () => {
   const { tickets, restaurant } = useStore();
+  const { user } = useAuthStore();
+  console.log(user)
   
   const calculateAverageWaitTime = () => {
     if (tickets.length === 0) return 0;

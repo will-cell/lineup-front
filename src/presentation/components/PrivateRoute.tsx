@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthStore } from '../../core/useCases/authStore';
+import { LoadingScreen } from './LoadingScreen';
 
 interface PrivateRouteProps {
     children: React.ReactNode;
@@ -8,13 +9,14 @@ interface PrivateRouteProps {
 
 export const PrivateRoute = ({ children }: PrivateRouteProps) => {
     const { checkAuth, isAuthenticated, isLoading } = useAuthStore();
+    const [showContent, setShowContent] = useState(false);
 
     useEffect(() => {
         checkAuth();
     }, [checkAuth]);
 
-    if (isLoading) {
-        return <div>Chargement...</div>;
+    if (isLoading && !showContent) {
+        return <LoadingScreen onLoadingComplete={() => setShowContent(true)} />;
     }
 
     if (!isAuthenticated) {

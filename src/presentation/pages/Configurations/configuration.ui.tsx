@@ -1,4 +1,4 @@
-import { ClockIcon, UserGroupIcon, BellIcon } from '@heroicons/react/24/outline';
+import { UserGroupIcon, BellIcon } from '@heroicons/react/24/outline';
 import { useConfiguration } from './configuration.hook';
 
 const ConfigBlock = ({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) => (
@@ -46,13 +46,13 @@ export const Configuration = () => {
                             label="Nombre total de places"
                             id="totalSeats"
                             type="number"
-                            value={formData.totalSeats}
-                            onChange={(e: { target: { value: string; }; }) => handleInputChange('totalSeats', parseInt(e.target.value))}
+                            value={formData.capacity}
+                            onChange={(e: { target: { value: string; }; }) => handleInputChange('capacity', parseInt(e.target.value))}
                             min="1"
                         />
                     </ConfigBlock>
 
-                    {/* Horaires de service */}
+                    {/* Horaires de service
                     <ConfigBlock 
                         title="Horaires de service" 
                         icon={<ClockIcon className="h-6 w-6 text-indigo-600" />}
@@ -71,7 +71,7 @@ export const Configuration = () => {
                             value={formData.serviceEndTime}
                             onChange={(e: { target: { value: string | number; }; }) => handleInputChange('serviceEndTime', e.target.value)}
                         />
-                    </ConfigBlock>
+                    </ConfigBlock> */}
 
                     {/* Paramètres d'attente */}
                     <ConfigBlock 
@@ -82,16 +82,16 @@ export const Configuration = () => {
                             label="Intervalle entre les tickets (minutes)"
                             id="ticketTimeStep"
                             type="number"
-                            value={formData.ticketTimeStep}
-                            onChange={(e: { target: { value: string; }; }) => handleInputChange('ticketTimeStep', parseInt(e.target.value))}
+                            value={formData.averageWaitingTime}
+                            onChange={(e: { target: { value: string; }; }) => handleInputChange('averageWaitingTime', parseInt(e.target.value))}
                             min="1"
                         />
                         <InputField
                             label="Délai de notification (minutes)"
                             id="notificationDelay"
                             type="number"
-                            value={formData.notificationDelay}
-                            onChange={(e: { target: { value: string; }; }) => handleInputChange('notificationDelay', parseInt(e.target.value))}
+                            value={formData.notificationThreshold}
+                            onChange={(e: { target: { value: string; }; }) => handleInputChange('notificationThreshold', parseInt(e.target.value))}
                             min="1"
                         />
                     </ConfigBlock>

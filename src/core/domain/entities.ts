@@ -1,11 +1,17 @@
 export interface Restaurant {
   id: string;
   name: string;
-  totalSeats: number;
-  serviceStartTime: string;
-  serviceEndTime: string;
-  ticketTimeStep: number;
-  notification_threshold: number;
+  ownerId: string;
+  latitude: number;
+  longitude: number;
+  address: string;
+  capacity: number;
+  waitingTimePerTicket: number; // Délai d'attente entre chaque ticket en minutes
+  notificationThreshold: number; // Délai avant notification en minutes
+  averageWaitingTime: number; // Temps d'attente moyen calculé
+  isOpen: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Ticket {

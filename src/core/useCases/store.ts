@@ -17,11 +17,17 @@ interface Store {
 const mockRestaurant: Restaurant = {
   id: '1',
   name: 'Restaurant Test',
-  totalSeats: 50,
-  serviceStartTime: '11:00',
-  serviceEndTime: '23:00',
-  ticketTimeStep: 15,
-  notification_threshold: 30
+  ownerId: 'owner123',
+  latitude: 48.8566,
+  longitude: 2.3522,
+  address: '10 Rue de la Paix, Paris, France',
+  capacity: 100,
+  waitingTimePerTicket: 15, // 15 minutes
+  notificationThreshold: 30, // 30 minutes
+  averageWaitingTime: 20, // 20 minutes
+  isOpen: true,
+  createdAt: new Date(),
+  updatedAt: new Date()
 };
 
 // Données de test pour les tickets

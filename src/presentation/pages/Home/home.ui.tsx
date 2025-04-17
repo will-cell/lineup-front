@@ -10,7 +10,7 @@ import { useHome } from './home.hook';
 
 export const Home = () => {
   
-  const { tickets, restaurant, calculateAverageWaitTime, getAvailableSeats } = useHome();
+  const { tickets, restaurant, getAvailableSeats } = useHome();
   console.log(restaurant)
 
   return (
@@ -26,12 +26,12 @@ export const Home = () => {
         />
         <StatCard
           title="Temps d'attente moyen"
-          value={`${calculateAverageWaitTime()} min`}
+          value={`${restaurant.averageWaitingTime} min`}
           icon={<ClockIcon className="h-6 w-6 text-indigo-600" />}
         />
         <StatCard
           title="Délai de notification"
-          value={`${restaurant.notification_threshold} min`}
+          value={`${restaurant.notificationThreshold} min`}
           icon={<BellIcon className="h-6 w-6 text-indigo-600" />}
         />
         <StatCard

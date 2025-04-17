@@ -17,6 +17,7 @@ export const authService = {
     },
 
     checkAuth: async (): Promise<boolean> => {
+        console.log('Checking authentication...');
         try {
             await axiosInstance.get('/auth/me');
             return true;

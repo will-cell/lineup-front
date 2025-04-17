@@ -17,3 +17,18 @@ export interface Ticket {
   estimatedArrivalTime: Date;
   status: 'waiting' | 'notified' | 'seated' | 'cancelled';
 }
+
+export interface User {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  restaurantId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useStore } from '../../../core/useCases/store';
+import { useAuthenticatedUser } from '../../../core/useCases/hooks/useAuthenticatedUser';
 
 export interface FormData {
     totalSeats: number;
@@ -10,14 +11,25 @@ export interface FormData {
 }
 
 export const useConfiguration = () => {
-    const { restaurant, updateRestaurant } = useStore();
+    const { updateRestaurant } = useStore();
+    const user = useAuthenticatedUser();
     const [formData, setFormData] = useState<FormData>({
-        totalSeats: restaurant.totalSeats,
-        ticketTimeStep: restaurant.ticketTimeStep,
-        serviceStartTime: restaurant.serviceStartTime,
-        serviceEndTime: restaurant.serviceEndTime,
-        notificationDelay: restaurant.notificationDelay
+        totalSeats: user.restaurant.totalSeats,
+        ticketTimeStep: user.restaurant.ticketTimeStep,
+        serviceStartTime: user.restaurant.serviceStartTime,
+        serviceEndTime: user.restaurant.serviceEndTime,
+        notificationDelay: user.restaurant.notification_threshold
     });
+
+    useEffect(() => {
+        setFormData({
+            totalSeats: user.restaurant.totalSeats,
+            ticketTimeStep: user.restaurant.ticketTimeStep,
+            serviceStartTime: user.restaurant.serviceStartTime,
+            serviceEndTime: user.restaurant.serviceEndTime,
+            notificationDelay: user.restaurant.notification_threshold
+        });
+    }, [user.restaurant]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -35,6 +47,6 @@ export const useConfiguration = () => {
         formData,
         handleSubmit,
         handleInputChange,
-        restaurant
+        restaurant: user.restaurant
     };
 };

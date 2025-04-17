@@ -21,7 +21,7 @@ const mockRestaurant: Restaurant = {
   serviceStartTime: '11:00',
   serviceEndTime: '23:00',
   ticketTimeStep: 15,
-  notificationDelay: 30
+  notification_threshold: 30
 };
 
 // Données de test pour les tickets

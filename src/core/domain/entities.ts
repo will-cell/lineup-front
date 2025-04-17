@@ -5,7 +5,7 @@ export interface Restaurant {
   serviceStartTime: string;
   serviceEndTime: string;
   ticketTimeStep: number;
-  notificationDelay: number;
+  notification_threshold: number;
 }
 
 export interface Ticket {
@@ -23,7 +23,7 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  restaurantId: string;
+  restaurant: Restaurant;
   createdAt: Date;
   updatedAt: Date;
 }

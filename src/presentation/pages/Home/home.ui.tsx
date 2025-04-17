@@ -11,6 +11,7 @@ import { useHome } from './home.hook';
 export const Home = () => {
   
   const { tickets, restaurant, calculateAverageWaitTime, getAvailableSeats } = useHome();
+  console.log(restaurant)
 
   return (
     <div>
@@ -30,7 +31,7 @@ export const Home = () => {
         />
         <StatCard
           title="Délai de notification"
-          value={`${restaurant.notificationDelay} min`}
+          value={`${restaurant.notification_threshold} min`}
           icon={<BellIcon className="h-6 w-6 text-indigo-600" />}
         />
         <StatCard

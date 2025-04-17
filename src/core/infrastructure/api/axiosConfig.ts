@@ -35,7 +35,7 @@ axiosInstance.interceptors.response.use(
         const originalRequest = error.config;
         
         // Si la requête était déjà une tentative de refresh, on ne réessaie pas
-        if (originalRequest.url === '/api/auth/refresh-token') {
+        if (originalRequest.url === '/auth/refresh-token') {
             processQueue(error, null);
             window.location.href = '/login';
             return Promise.reject(error);
@@ -59,7 +59,7 @@ axiosInstance.interceptors.response.use(
             isRefreshing = true;
 
             try {
-                await axiosInstance.post('/api/auth/refresh-token');
+                await axiosInstance.post('/auth/refresh-token');
                 processQueue(null);
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
